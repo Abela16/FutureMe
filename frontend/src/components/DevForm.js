@@ -3,12 +3,13 @@ import axios from "axios";
 
 function DevForm({ setResult }) {
   const [formData, setFormData] = useState({
-    experienceLevel: "junior",
+    experienceLevel: "Select exprience level",
     codingHoursPerWeek: "",
     techStackCount: "",
     projectsBuilt: "",
     openSourceContributions: ""
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -19,6 +20,7 @@ function DevForm({ setResult }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(
@@ -36,6 +38,8 @@ function DevForm({ setResult }) {
     } catch (error) {
       console.error("Error:", error);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -44,7 +48,7 @@ function DevForm({ setResult }) {
       className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-100 backdrop-blur-sm"
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Developer Profile</h2>
-      
+
       <div className="mb-5">
         <label className="block mb-2 text-sm font-semibold text-gray-700">Experience Level</label>
         <select
@@ -53,14 +57,16 @@ function DevForm({ setResult }) {
           onChange={handleChange}
           className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 hover:border-gray-300"
         >
-          <option value="beginner">Beginner</option>
-          <option value="junior">Junior</option>
-          <option value="mid">Mid</option>
-          <option value="senior">Senior</option>
+          <option value="Select exprience level">Select exprience level</option>
+          <option value="beginner">Beginner(0-2 years)</option>
+          <option value="junior">Junior(2-5 year)</option>
+          <option value="mid">Mid(5-8 year)</option>
+          <option value="senior">Senior(8+)</option>
         </select>
       </div>
 
       <div className="mb-5">
+        <label className="block mb-2 text-sm font-semibold text-gray-700">Coding hours per week</label>
         <input
           type="number"
           name="codingHoursPerWeek"
@@ -71,6 +77,7 @@ function DevForm({ setResult }) {
       </div>
 
       <div className="mb-5">
+        <label className="block mb-2 text-sm font-semibold text-gray-700">Number of tech stacks</label>
         <input
           type="number"
           name="techStackCount"
@@ -79,7 +86,7 @@ function DevForm({ setResult }) {
           className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-300"
         />
       </div>
-
+      <label className="block mb-2 text-sm font-semibold text-gray-700">Projects built</label>
       <div className="mb-5">
         <input
           type="number"
@@ -89,7 +96,7 @@ function DevForm({ setResult }) {
           className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-300"
         />
       </div>
-
+      <label className="block mb-2 text-sm font-semibold text-gray-700">Open source contributions</label>
       <div className="mb-6">
         <input
           type="number"
@@ -102,9 +109,10 @@ function DevForm({ setResult }) {
 
       <button
         type="submit"
-        className="bg-gradient-to-r from-blue-600 to-blue-700 text-white w-full p-3 rounded-lg font-semibold text-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300"
+        className="bg-blue-600 text-white w-full p-2 rounded"
+        disabled={loading}
       >
-        Predict My Future
+        {loading ? "Analyzing..." : "Predict My Future"}
       </button>
     </form>
   );
