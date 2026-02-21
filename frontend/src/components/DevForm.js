@@ -34,7 +34,10 @@ function DevForm({ setResult }) {
         }
       );
 
-      setResult(response.data);
+      localStorage.setItem("predictionResult", JSON.stringify(response.data));
+      if (setResult) {
+        setResult(response.data);
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -45,7 +48,7 @@ function DevForm({ setResult }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-100 backdrop-blur-sm"
+      className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-200 backdrop-blur-sm"
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Developer Profile</h2>
 
@@ -55,7 +58,7 @@ function DevForm({ setResult }) {
           name="experienceLevel"
           value={formData.experienceLevel}
           onChange={handleChange}
-          className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 hover:border-gray-300"
+          className="w-full p-3 border-2 border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 hover:border-gray-400"
         >
           <option value="Select exprience level">Select exprience level</option>
           <option value="beginner">Beginner(0-2 years)</option>
@@ -72,7 +75,7 @@ function DevForm({ setResult }) {
           name="codingHoursPerWeek"
           placeholder="Coding hours per week"
           onChange={handleChange}
-          className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-300"
+          className="w-full p-3 border-2 border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-400"
         />
       </div>
 
@@ -83,7 +86,7 @@ function DevForm({ setResult }) {
           name="techStackCount"
           placeholder="Number of tech stacks"
           onChange={handleChange}
-          className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-300"
+          className="w-full p-3 border-2 border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-400"
         />
       </div>
       <label className="block mb-2 text-sm font-semibold text-gray-700">Projects built</label>
@@ -93,7 +96,7 @@ function DevForm({ setResult }) {
           name="projectsBuilt"
           placeholder="Projects built"
           onChange={handleChange}
-          className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-300"
+          className="w-full p-3 border-2 border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-400"
         />
       </div>
       <label className="block mb-2 text-sm font-semibold text-gray-700">Open source contributions</label>
@@ -103,13 +106,13 @@ function DevForm({ setResult }) {
           name="openSourceContributions"
           placeholder="Open source contributions"
           onChange={handleChange}
-          className="w-full p-3 border-2 border-gray-200 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-300"
+          className="w-full p-3 border-2 border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-gray-800 placeholder-gray-400 hover:border-gray-400"
         />
       </div>
 
       <button
         type="submit"
-        className="bg-blue-600 text-white w-full p-2 rounded"
+        className="bg-blue-600 text-white w-full p-2 rounded hover:bg-blue-700 transition"
         disabled={loading}
       >
         {loading ? "Analyzing..." : "Predict My Future"}
